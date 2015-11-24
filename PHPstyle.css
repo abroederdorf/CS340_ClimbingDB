@@ -1,0 +1,36 @@
+#pageDiv{
+	max-width: 400px;
+	margin: auto;
+	border: solid 1px;
+	padding: 10px;
+}
+
+#searchDiv{
+	max-width: 900px;
+	margin: auto;
+	border: solid 1px;
+	padding: 10px;
+}
+
+th{
+	background-color: lightblue;
+	padding-left: 5px;
+	padding-right: 5px;
+	border: solid 1px;
+}
+
+td{
+	padding-left: 5px;
+	padding-right: 5px;
+	border: solid 1px;
+}
+
+.filterTbls{
+	border-spacing: 0px;
+	border: solid 1px;
+	margin-bottom: 15px;
+}
+
+.txtCenter{
+	text-align: center;
+}

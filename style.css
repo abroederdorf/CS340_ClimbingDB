@@ -1,0 +1,346 @@
+th{
+	border: solid 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: lightblue;
+}
+
+td {
+	border: solid 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.txtCenter{
+	text-align: center;
+}
+
+.tabBut{
+	text-align: center;
+	background-color: white;
+	border-top: solid 1px;
+	border-left: solid 1px;
+	border-right: solid 1px;
+	border-radius: 5px;
+}
+
+.showButton{
+	margin-top: 5px;
+}
+
+.buttonDiv{
+	float: left;
+	vertical-align: top;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.buttons{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+.filterBut{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+/*-------------------------Top Section-------------------------*/
+#topDiv{
+	max-width: 1000px;
+	margin: auto;
+}
+
+
+#addDiv{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+/*-------------------------Route-Climber-------------------------*/
+#routeClimbed{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#rtClTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#rtClTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#rtClAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#rtClDelDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 25px;
+	margin-bottom: 25px;
+}
+
+/*-------------------------Climber-------------------------*/
+#peopleDiv{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#peopleTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#peopleTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#peopleAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#peopleUpdateDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 25px;
+	margin-bottom: 25px;
+}
+
+#addClimber{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+/*-------------------------Mountain-------------------------*/
+#mtnDiv{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#mtnTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#mtnTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#mtnAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#addMtn{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+
+/*-------------------------Route-------------------------*/
+#routeDiv{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#routeTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#routeTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#routeAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#addRoute{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+/*-------------------------Skill-------------------------*/
+#skillDiv{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#skillHdr{
+	margin-left: 15px;
+}
+
+#skillTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 15px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#skillTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#skillAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#addSkill{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+/*-------------------------Climber-Skill-------------------------*/
+#climberSkill{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#cliSkTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#cliSkTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#cliSkAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#addCliSk{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+#clSkDelDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 25px;
+	margin-bottom: 25px;
+}
+
+/*-------------------------Route-Skill-------------------------*/
+#routeSkill{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+#rtSkTblDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 25px;
+}
+
+#rtSkTbl{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#rtSkAddDiv{
+	margin-left: 25px;
+	text-align: left;
+}
+
+#addRtSk{
+	text-align: center;
+	margin-left: 40%;
+	margin-top: 10px;
+}
+
+#rtSkDelDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 25px;
+	margin-bottom: 25px;
+}
+
+/*-------------------------Filters-------------------------*/
+#searchDiv{
+	clear: left;
+	max-width: 1000px;
+	margin: auto;
+	border-top: solid 1px;
+}
+
+.filterRow{
+	clear: left;
+}
+
+.filterDiv{
+	float: left;
+	vertical-align: top;
+	margin-bottom: 20px;
+	width: 500px;
+}
+
+
+.filterBut{
+	margin-bottom: 10px;
+}
+
+.filterTbls{
+	border-spacing: 0px;
+	border: solid 1px;
+}
+
+#f4TblNotClimbed{
+	margin-top: 10px;
+}
