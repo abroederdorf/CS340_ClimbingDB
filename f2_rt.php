@@ -21,8 +21,10 @@
 			<h3>Search Results</h3>
 			<p>Below are the routes 
 			<?php
+			//Create message to let user know what the search criteria was
+			
 				//check if a location is provided
-				if (!empty($_POST['f2Loc']))
+				if ($_POST['f2Loc'] != 0)
 				{
 					echo "in the " . $_POST['f2Loc'];
 					//Check if minimum elevation is provided
@@ -49,7 +51,7 @@
 					//Check if minimum elevation is provided
 					if (!empty($_POST['f2ElMin']))
 					{
-						echo " over " . $_POST['f2ElMin'] . " feet";
+						echo " in all locations over " . $_POST['f2ElMin'] . " feet";
 						//Check if maximum elevation is provided
 						if (!empty($_POST['f2ElMax']))
 							echo " and under " . $_POST['f2ElMax'] . " feet.";
@@ -60,9 +62,9 @@
 					{
 						//Check if maximum elevation is provided
 						if (!empty($_POST['f2ElMax']))
-							echo " under " . $_POST['f2ElMax'] . " feet.";
+							echo " in all locations under " . $_POST['f2ElMax'] . " feet.";
 						else
-							echo "no where, no search parameters entered.";
+							echo "in all locations.";
 					}
 				}
 			?>
@@ -75,8 +77,10 @@
 					<th class="txtCenter">Location</th>
 				</tr>
 				<?php
+				//Create table to show results
+				
 					//check if a location is provided
-					if (!empty($_POST['f2Loc']))
+					if ($_POST['f2Loc'] != "0")
 					{
 						//Check if minimum elevation is provided
 						if (!empty($_POST['f2ElMin']))
@@ -197,7 +201,15 @@
 								}
 							}								
 							else
-								exit;
+							{
+								if(!($stmt = $mysqli->prepare("SELECT r.name, m.name, m.elevation, m.location FROM mtn_route r INNER JOIN mtn_mountain m ON r.mtid = m.id"))){
+									echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+								}
+
+								if(!$stmt->execute()){
+									echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+								}
+							}
 						}
 					}
 					if(!$stmt->bind_result($rname, $mname, $elev, $loc)){
@@ -210,14 +222,17 @@
 					if ($stmt->num_rows == 1)
 						echo "<p><em>(1 result returned)</em></p>";
 					else
+					{
+						//Print how many results were returned
 						echo "<p><em>(".$stmt->num_rows . " reults returned)</em></p>";
+					}
 					
 					$stmt->close();
 					?>
 			</table>
 			
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->
-			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDBPHP.php';">Back</button>
+			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDB.php';">Back</button>
 		</div>
 	</body>
 </html>

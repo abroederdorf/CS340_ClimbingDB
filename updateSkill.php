@@ -21,21 +21,20 @@
 			<h3>Status</h3>
 			<p>
 				<?php	
-					//Create add query and execute
-					if(!($stmt = $mysqli->prepare("INSERT INTO mtn_routeClimbed(cid, rid, climbDate) VALUES (?,?,?)"))){
+					//Create update query and execute
+					if(!($stmt = $mysqli->prepare("UPDATE mtn_skill SET name = ? WHERE id = ?"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 					}
-					if(!($stmt->bind_param("iis",$_POST['climberRtCl'],$_POST['routeRtCl'],$_POST['dateClimbed']))){
+					if(!($stmt->bind_param("si",$_POST['skillUp'],$_POST['skillIdUp']))){
 						echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 					}
 					if(!$stmt->execute()){
 						echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-					} else {
-						if ($stmt->affected_rows == 0)
-							echo "Error, added " . $stmt->affected_rows . " rows to mtn_routeClimbed.";
-						else
-							echo "Added " . $stmt->affected_rows . " row to mtn_routeClimbed.";
+					} else 
+					{
+						 echo "Updated skill name successfully.";
 					}
+					$stmt->close();
 				?>
 			</p>
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->

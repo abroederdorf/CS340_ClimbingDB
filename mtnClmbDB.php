@@ -30,8 +30,11 @@ if($mysqli->connect_errno){
 		<div id="addDiv">
 			<h3>Add Data</h3>
 			<p>Add new mountains, routes, people, skills, and climbs completed using the forms. </p>
+			
+			<!-- Section - Relationship Table: Add routes climbed -->
 			<div id="routeClimbed">
 				<h3>Routes Climbed</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="rtClAddDiv">
 						<form method="post" action="addRtCl.php" autocomplete="off">
@@ -87,6 +90,8 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('rtClTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
+				
+				<!-- Form to delete row -->
 				<div id="rtClDelDiv">
 					<form method="post" action="delRtCl.php" autocomplete="off">
 						<fieldset>
@@ -138,6 +143,8 @@ if($mysqli->connect_errno){
 						</fieldset>
 					</form>
 				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="rtClTblDiv">
 					<table id="rtSkTbl">
 						<tr>
@@ -167,8 +174,10 @@ if($mysqli->connect_errno){
 				</div>
 			</div>
 		
+			<!-- Section - Entity Table: Add climbers -->
 			<div id="peopleDiv">
 				<h3>Climber</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="peopleAddDiv">
 						<form method="post" action="addClimber.php" autocomplete="off">
@@ -192,12 +201,14 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('peopleTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
-				<div id="peopleUpdateDiv">
+				
+				<!-- Form to update climber information -->
+				<div class="UpdateDiv">
 					<form method="post" action="updateClimber.php" autocomplete="off">
 						<fieldset>
-						<legend>Update Climber Zip Code</legend>
+						<legend>Update Climber Information</legend>
 							<p>Name:
-								<select name="nameUp">
+								<select name="climberUp">
 									<!--value corresponds to climber id-->
 									<?php
 										if(!($stmt = $mysqli->prepare("SELECT id, fname, lname FROM mtn_climber ORDER BY lname ASC"))){
@@ -217,11 +228,25 @@ if($mysqli->connect_errno){
 									?>
 								</select>
 							</p>
+							<p>First Name: <input type="text" name="fnameUp"></p>
+							<p>Last Name: <input type="text" name="lnameUp"></p>
+							<p>Birth Year: <input type="number" name="birthYearUp"></p>
+							<span>Gender:
+								<select name="genderUp">
+									<option value="No Change">No Change</option>
+									<option value="female">Female</option>
+									<option value="male">Male</option>
+									<option value="other">Other</option>
+									<option value="not disclosed">Not Disclosed</option>
+								</select>
+							</span>
 							<p>New Zip Code: <input type="number" name="zipUp"></p>
 							<input type="submit" id="updateClimber" class="buttons">
 						</fieldset>
 					</form>
 				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="peopleTblDiv">
 					<table id="peopleTbl">
 						<tr>
@@ -251,8 +276,10 @@ if($mysqli->connect_errno){
 				</div>
 			</div>
 			
+			<!-- Section - Entity Table: Add mountains -->
 			<div id="mtnDiv">
 				<h3>Mountain</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="mtnAddDiv">
 						<form method="post" action="addMountain.php" autocomplete="off">
@@ -267,6 +294,42 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('mtnTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
+				
+				<!-- Form to update mountain information -->
+				<div class="UpdateDiv">
+					<form method="post" action="updateMountain.php" autocomplete="off">
+						<fieldset>
+						<legend>Update Mountain Information</legend>
+							<p>Name:
+								<select name="mtnIdUp">
+									<!--value corresponds to mountain id-->
+									<?php
+										if(!($stmt = $mysqli->prepare("SELECT id, name FROM mtn_mountain ORDER BY name ASC"))){
+											echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+										}
+
+										if(!$stmt->execute()){
+											echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										if(!$stmt->bind_result($id, $name)){
+											echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										while($stmt->fetch()){
+											echo '<option value=" '. $id . ' "> ' . $name . '</option>\n';
+										}
+										$stmt->close();
+									?>
+								</select>
+							</p>
+							<p>New Name: <input type="text" name="mtnUp"></p>
+							<p>New Elevation: <input type="number" name="elevUp"></p>
+							<p>New Location: <input type="text" name="locationUp"></p>
+							<input type="submit" class="buttons">
+						</fieldset>
+					</form>
+				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="mtnTblDiv">
 					<table id="mtnTbl">
 						<tr>
@@ -294,8 +357,10 @@ if($mysqli->connect_errno){
 				</div>
 			</div>
 			
+			<!-- Section - Entity Table: Add routes on mountains -->
 			<div id="routeDiv">
 				<h3>Route</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="routeAddDiv">
 						<form method="post" action="addRoute.php" autocomplete="off">
@@ -330,6 +395,62 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('routeTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
+				
+				<!-- Form to update route information -->
+				<div class="UpdateDiv">
+					<form method="post" action="updateRoute.php" autocomplete="off">
+						<fieldset>
+						<legend>Update Route Name</legend>
+							<p>Name:
+								<select name="routeIdUp">
+									<!--value corresponds to route id-->
+									<?php
+										if(!($stmt = $mysqli->prepare("SELECT r.id, r.name, m.name FROM mtn_route r INNER JOIN mtn_mountain m ON r.mtid = m.id ORDER BY m.name ASC"))){
+											echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+										}
+
+										if(!$stmt->execute()){
+											echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										if(!$stmt->bind_result($id, $rname, $mname)){
+											echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										while($stmt->fetch()){
+											echo '<option value=" '. $id . ' "> ' . $rname . ", " .$mname . '</option>\n';
+										}
+										$stmt->close();
+									?>
+								</select>
+							</p>
+							<p>New Name: <input type="text" name="routeUp"></p>
+							<p>New Mountain:
+								<select name="newMtn">
+									<option value="No Change">No Change</option>
+									<!-- Value corresponds to mountain id -->
+									<?php
+										if(!($stmt = $mysqli->prepare("SELECT id, name FROM mtn_mountain ORDER BY name ASC"))){
+											echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+										}
+
+										if(!$stmt->execute()){
+											echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										if(!$stmt->bind_result($id, $name)){
+											echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										while($stmt->fetch()){
+											echo '<option value=" '. $id . ' "> ' . $name . '</option>\n';
+										}
+										$stmt->close();
+									?>
+								</select>
+							</p>
+							<input type="submit" class="buttons">
+						</fieldset>
+					</form>
+				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="routeTblDiv">
 					<table id="routeTbl">
 						<tr>
@@ -355,9 +476,11 @@ if($mysqli->connect_errno){
 					</table>
 				</div>
 			</div>
-				
+			
+			<!-- Section - Entity Table: Add skills -->
 			<div id="skillDiv">
 				<h3 id="skillHdr">Skill</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="skillAddDiv">
 						<form method="post" action="addSkill.php" autocomplete="off">
@@ -370,6 +493,40 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('skillTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
+				
+				<!-- Form to update skill name -->
+				<div class="UpdateDiv">
+					<form method="post" action="updateSkill.php" autocomplete="off">
+						<fieldset>
+						<legend>Update Skill Name</legend>
+							<p>Name:
+								<select name="skillIdUp">
+									<!--value corresponds to skill id-->
+									<?php
+										if(!($stmt = $mysqli->prepare("SELECT id, name FROM mtn_skill ORDER BY name ASC"))){
+											echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+										}
+
+										if(!$stmt->execute()){
+											echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										if(!$stmt->bind_result($id, $name)){
+											echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										while($stmt->fetch()){
+											echo '<option value="'. $id .'"> ' . $name . '</option>\n';
+										}
+										$stmt->close();
+									?>
+								</select>
+							</p>
+							<p>New Name: <input type="text" name="skillUp"></p>
+							<input type="submit" class="buttons">
+						</fieldset>
+					</form>
+				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="skillTblDiv">
 					<table id="skillTbl">
 						<tr>
@@ -395,8 +552,10 @@ if($mysqli->connect_errno){
 				</div>
 			</div>
 			
+			<!-- Section - Relationship Table: Add skills to climbers -->
 			<div id="climberSkill">
 				<h3>Climber Skills</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="cliSkAddDiv">
 						<form method="post" action="addClSk.php" autocomplete="off">
@@ -450,6 +609,8 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('cliSkTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
+				
+				<!-- Form to delete row -->
 				<div id="clSkDelDiv">
 					<form method="post" action="delClSk.php" autocomplete="off">
 						<fieldset>
@@ -500,6 +661,8 @@ if($mysqli->connect_errno){
 						</fieldset>
 					</form>
 				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="cliSkTblDiv">
 					<table id="cliSkTbl">
 						<tr>
@@ -527,8 +690,10 @@ if($mysqli->connect_errno){
 				</div>
 			</div>
 			
+			<!-- Section - Relationship Table: Add reqired skills to routes -->
 			<div id="routeSkill">
 				<h3>Route Skills</h3>
+				<!-- Form to add data -->
 				<div class="buttonDiv">
 					<div id="rtSkAddDiv">
 						<form method="post" action="addRtSk.php" autocomplete="off">
@@ -582,6 +747,8 @@ if($mysqli->connect_errno){
 					</div>
 					<button onclick="toggle('rtSkTblDiv')" class="showButton">Show Table of Data</button>
 				</div>
+				
+				<!-- Form to delete row -->
 				<div id="rtSkDelDiv">
 					<form method="post" action="delRtSk.php" autocomplete="off">
 						<fieldset>
@@ -632,6 +799,8 @@ if($mysqli->connect_errno){
 						</fieldset>
 					</form>
 				</div>
+				
+				<!-- Table to view data in table -->
 				<div id="rtSkTblDiv">
 					<table id="rtSkTbl">
 						<tr>
@@ -660,12 +829,13 @@ if($mysqli->connect_errno){
 			</div>
 		</div>
 
-		<!-- Search -->
+		<!-- Search Content-->
 		<div id="searchDiv">
 			<h3>Search</h3>
 			<p>Use the filters to search for routes, climbing partners, or to find a list of who has climbed specific routes.</p>
 			
 			<div class="filterRow">
+				<!-- Filter 1: Routes on mountains -->
 				<div id="f1Div" class="filterDiv">
 					<fieldset>
 						<legend>Routes</legend>
@@ -697,12 +867,34 @@ if($mysqli->connect_errno){
 					</fieldset>
 				</div>
 				
+				<!-- Filter 2: Routes based on location and/or elevation -->
 				<div id="f2Div" class="filterDiv">
 					<fieldset>
 						<legend>Routes</legend>
 						<p>Find routes on a mountain in a selected location and/or within a specified elevation range.</p>
 						<form  method="post" action="f2_rt.php" autocomplete="off">
-							<p>Location: <input type="text" name="f2Loc"></p>
+						<p>Location:
+								<select name="f2Loc">
+									<option value="0">All locations</option>
+									<!--value corresponds to location-->
+									<?php
+										if(!($stmt = $mysqli->prepare("SELECT location FROM mtn_mountain GROUP BY location ORDER BY location ASC"))){
+											echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+										}
+
+										if(!$stmt->execute()){
+											echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										if(!$stmt->bind_result($loc)){
+											echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+										}
+										while($stmt->fetch()){
+											echo '<option value="'.$loc.'"> ' . $loc .'</option>\n';
+										}
+										$stmt->close();
+									?>
+								</select>
+							</p>
 							<p>Minimum Elevation: <input type="number" name="f2ElMin"></p>
 							<p>Maximum Elevation: <input type="number" name="f2ElMax"></p>
 							<input type="submit" class="filterBut"" value="Search">
@@ -712,6 +904,7 @@ if($mysqli->connect_errno){
 			</div>
 			
 			<div class="filterRow">
+				<!-- Filter 10: Routes based on selected skills -->
 				<div id="f10Div" class="filterDiv">
 					<fieldset>
 						<legend>Routes</legend>
@@ -764,6 +957,7 @@ if($mysqli->connect_errno){
 					</fieldset>
 				</div>
 				
+				<!-- Filter 11: Climbers based on selected skills -->
 				<div id="f11Div" class="filterDiv">
 					<fieldset>
 						<legend>Climbers</legend>
@@ -839,6 +1033,7 @@ if($mysqli->connect_errno){
 			</div>
 			
 			<div class="filterRow">
+				<!-- Filter 3: Climber basesd on zip code, age, and gender -->
 				<div id="f3Div" class="filterDiv">
 					<fieldset>
 						<legend>Climbing Partner</legend>
@@ -861,6 +1056,7 @@ if($mysqli->connect_errno){
 					</fieldset>
 				</div>
 				
+				<!-- Filter 4: Climbers who have or have not climbed a specified route -->
 				<div id="f4Div" class="filterDiv">
 					<fieldset>
 						<legend>Climbed Routes</legend>
@@ -895,6 +1091,7 @@ if($mysqli->connect_errno){
 			</div>	
 			
 			<div class="filterRow">
+				<!-- Filter 8: Count of how many times all climbers have climbed a specified route -->
 				<div id="f8Div" class="filterDiv">
 					<fieldset>
 						<legend>Climbed Routes</legend>
@@ -926,6 +1123,7 @@ if($mysqli->connect_errno){
 					</fieldset>
 				</div>
 				
+				<!-- Filter 9: Routes two climbers have climbed together -->
 				<div id="f9Div" class="filterDiv">
 					<fieldset>
 						<legend>Climbed Routes</legend>
@@ -980,6 +1178,7 @@ if($mysqli->connect_errno){
 			</div>
 			
 			<div class="filterRow">
+				<!-- Filter 6: Routes a specified climber has climbed -->
 				<div id="f6Div" class="filterDiv">
 					<fieldset>
 						<legend>Climber's Routes</legend>
@@ -1011,6 +1210,7 @@ if($mysqli->connect_errno){
 					</fieldset>
 				</div>
 				
+				<!-- Filter 7: Average elevation of all routes a climber has climbed -->
 				<div id="f7Div" class="filterDiv">
 					<fieldset>
 						<legend>Climber's Routes</legend>

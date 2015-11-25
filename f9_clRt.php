@@ -21,6 +21,8 @@
 			<h3>Search Results</h3>
 			<p>Below are the routes  
 			<?php
+			//Create message to let user know what the search criteria was
+			
 				//First climber
 				if(!($stmt = $mysqli->prepare("SELECT fname, lname FROM mtn_climber WHERE id = ?"))){
 					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
@@ -69,6 +71,8 @@
 					<th class="txtCenter">Date Climbed</th>
 				</tr>
 				<?php
+				//Create table to show results
+				
 					if(!($stmt = $mysqli->prepare("SELECT tbl1.rname, tbl1.mname, tbl1.climbDate FROM (SELECT rc.rid, rc.climbDate, r.name AS rname, m.name AS mname FROM mtn_climber c INNER JOIN mtn_routeClimbed rc ON rc.cid = c.id INNER JOIN mtn_route r ON r.id = rc.rid INNER JOIN mtn_mountain m ON m.id = r.mtid WHERE c.id = ?) AS tbl1 INNER JOIN (SELECT rc.rid, rc.climbDate FROM mtn_climber c INNER JOIN mtn_routeClimbed rc ON rc.cid = c.id INNER JOIN mtn_route r ON r.id = rc.rid INNER JOIN mtn_mountain m ON m.id = r.mtid WHERE c.id = ?) AS tbl2 ON tbl1.rid = tbl2.rid AND tbl1.climbDate = tbl2.climbDate ORDER BY tbl1.mname ASC"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 					}
@@ -90,13 +94,16 @@
 					if ($stmt->num_rows == 1)
 						echo "<p><em>(1 result returned)</em></p>";
 					else
+					{
+						//Print how many results were returned
 						echo "<p><em>(".$stmt->num_rows . " reults returned)</em></p>";
+					}
 					
 					$stmt->close();
 					?>
 			</table>
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->
-			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDBPHP.php';">Back</button>
+			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDB.php';">Back</button>
 		</div>
 	</body>
 </html>

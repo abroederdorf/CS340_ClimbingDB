@@ -21,6 +21,8 @@
 			<h3>Search Results</h3>
 			<p>Below are the climbers that 
 			<?php		
+			//Create message to let user know what the search criteria was
+			
 				//Check gender
 				$genStat = false;
 				if (isset($_POST['f3Gender']))
@@ -105,6 +107,8 @@
 					<th class="txtCenter">Zip Code</th>
 				</tr>
 				<?php
+				//Create table to show results
+				
 					//Get current year for determining ages
 					$curYear = date("Y");
 					
@@ -442,13 +446,16 @@
 					if ($stmt->num_rows == 1)
 						echo "<p><em>(1 result returned)</em></p>";
 					else
+					{
+						//Print how many results were returned
 						echo "<p><em>(".$stmt->num_rows . " reults returned)</em></p>";
+					}
 					
 					$stmt->close();
 				?>
 			</table>
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->
-			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDBPHP.php';">Back</button>
+			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDB.php';">Back</button>
 		</div>
 	</body>
 </html>

@@ -21,7 +21,7 @@
 			<h3>Status</h3>
 			<p>
 				<?php	
-					//Create add query and execute
+					//Create delete query and execute
 					if(!($stmt = $mysqli->prepare("DELETE FROM mtn_routeSkill WHERE rid = ? AND sid = ?"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 					}
@@ -39,7 +39,7 @@
 				?>
 			</p>
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->
-			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDBPHP.php';">Back</button>
+			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDB.php';">Back</button>
 		</div>
 	</body>
 </html>

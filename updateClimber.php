@@ -21,40 +21,95 @@
 			<h3>Status</h3>
 			<p>
 				<?php	
-					//Create add query and execute
-					if(!($stmt = $mysqli->prepare("UPDATE mtn_climber SET zip = ? WHERE id = ?"))){
-						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
-					}
-					if(!($stmt->bind_param("ii",$_POST['zipUp'],$_POST['nameUp']))){
-						echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
-					}
-					if(!$stmt->execute()){
-						echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
-					} else 
+					//Update first name
+					if (!empty($_POST['fnameUp']))
 					{
-						if(!($stmt = $mysqli->prepare("SELECT fname, lname FROM mtn_climber WHERE id = ?"))){
+						if(!($stmt = $mysqli->prepare("UPDATE mtn_climber SET fname = ? WHERE id = ?"))){
 							echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 						}
-
-						if(!($stmt->bind_param("i",$_POST['nameUp']))){
+						if(!($stmt->bind_param("si",$_POST['fnameUp'],$_POST['climberUp']))){
 							echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 						}
-
 						if(!$stmt->execute()){
-							echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+							echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+						} else 
+						{
+							 echo "Updated first name. ";
 						}
-						if(!$stmt->bind_result($fname, $lname)){
-							echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+							$stmt->close();
+					}
+					//Update last name
+					if (!empty($_POST['lnameUp']))
+					{
+						if(!($stmt = $mysqli->prepare("UPDATE mtn_climber SET lname = ? WHERE id = ?"))){
+							echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 						}
-						while($stmt->fetch()){
-						 echo "Updated zip code of " . $fname . " " . $lname . ".";
+						if(!($stmt->bind_param("si",$_POST['lnameUp'],$_POST['climberUp']))){
+							echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 						}
-						$stmt->close();
+						if(!$stmt->execute()){
+							echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+						} else 
+						{
+							 echo "Updated last name. ";
+						}
+							$stmt->close();
+					}
+					//Update birth year
+					if (!empty($_POST['birthYearUp']))
+					{
+						if(!($stmt = $mysqli->prepare("UPDATE mtn_climber SET birthYear = ? WHERE id = ?"))){
+							echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!($stmt->bind_param("ii",$_POST['birthYearUp'],$_POST['climberUp']))){
+							echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!$stmt->execute()){
+							echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+						} else 
+						{
+							 echo "Updated birth year. ";
+						}
+							$stmt->close();
+					}
+					//Update gender
+					if ($_POST['genderUp'] != "No Change")
+					{
+						if(!($stmt = $mysqli->prepare("UPDATE mtn_climber SET gender = ? WHERE id = ?"))){
+							echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!($stmt->bind_param("si",$_POST['genderUp'],$_POST['climberUp']))){
+							echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!$stmt->execute()){
+							echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+						} else 
+						{
+							 echo "Updated gender. ";
+						}
+							$stmt->close();
+					}
+					//Update zip code
+					if (!empty($_POST['zipUp']))
+					{
+						if(!($stmt = $mysqli->prepare("UPDATE mtn_climber SET zip = ? WHERE id = ?"))){
+							echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!($stmt->bind_param("ii",$_POST['zipUp'],$_POST['climberUp']))){
+							echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+						}
+						if(!$stmt->execute()){
+							echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+						} else 
+						{
+							 echo "Updated zip code. ";
+						}
+							$stmt->close();
 					}
 				?>
 			</p>
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->
-			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDBPHP.php';">Back</button>
+			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDB.php';">Back</button>
 		</div>
 	</body>
 </html>

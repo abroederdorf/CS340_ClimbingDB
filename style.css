@@ -47,6 +47,13 @@ td {
 	margin-top: 10px;
 }
 
+.UpdateDiv{
+	float: left;
+	vertical-align: top;
+	margin-left: 25px;
+	margin-bottom: 25px;
+}
+
 /*-------------------------Top Section-------------------------*/
 #topDiv{
 	max-width: 1000px;

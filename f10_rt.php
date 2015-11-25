@@ -21,7 +21,9 @@
 			<h3>Search Results</h3>
 			<p>Below are the routes the require the skills  
 			<?php
-				//First climber
+			//Create message to let user know what the search criteria was
+			
+				//First skill
 				if(!($stmt = $mysqli->prepare("SELECT name FROM mtn_skill WHERE id = ?"))){
 					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 				}
@@ -41,7 +43,7 @@
 				}
 				$stmt->close();
 				
-				//Second climber
+				//Second skill
 				if(!($stmt = $mysqli->prepare("SELECT name FROM mtn_skill WHERE id = ?"))){
 					echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 				}
@@ -68,6 +70,8 @@
 					<th class="txtCenter">Mountain</th>
 				</tr>
 				<?php
+				//Create table to show results
+				
 					if(!($stmt = $mysqli->prepare("SELECT tbl2.rname, tbl2.mname FROM (SELECT r.id FROM mtn_route r INNER JOIN mtn_routeSkill rs ON rs.rid = r.id INNER JOIN mtn_skill s ON s.id = rs.sid WHERE s.id = ?) AS tbl1 INNER JOIN (SELECT r.name AS rname, m.name AS mname, r.id FROM mtn_route r INNER JOIN mtn_routeSkill rs ON rs.rid = r.id INNER JOIN mtn_skill s ON s.id = rs.sid INNER JOIN mtn_mountain m ON m.id = r.mtid WHERE s.id = ?) AS tbl2 ON tbl1.id = tbl2.id ORDER BY tbl2.mname ASC"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 					}
@@ -89,13 +93,16 @@
 					if ($stmt->num_rows == 1)
 						echo "<p><em>(1 result returned)</em></p>";
 					else
+					{
+						//Print how many results were returned
 						echo "<p><em>(".$stmt->num_rows . " reults returned)</em></p>";
+					}
 					
 					$stmt->close();
 					?>
 			</table>
 			<!--Source: http://stackoverflow.com/questions/5025941/is-there-a-way-to-get-a-button-element-to-link-to-a-location-without-wrapping-->
-			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDBPHP.php';">Back</button>
+			<button onclick="window.location='http://web.engr.oregonstate.edu/~broedera/CS340/project/mtnClmbDB.php';">Back</button>
 		</div>
 	</body>
 </html>
