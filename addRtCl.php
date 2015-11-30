@@ -20,7 +20,44 @@
 		<div id="pageDiv">
 			<h3>Status</h3>
 			<p>
-				<?php	
+				<?php
+					//Validate date format
+					$myDate = $_POST['dateClimbed'];
+					
+					//Check that date only contains numbers or -
+					$dateLen = strlen($myDate);
+					$rightFormat = true;
+					$total = 0;
+					for ($i = 0; $i < $dateLen; $i++)
+					{
+						$char = substr($myDate, $i, 1);
+						if (!(is_numeric($char) ||  $char == '-'))
+							$total++;
+					}
+					if ($total)
+					{
+						echo "Error: Incorrect date format. You entered ".$myDate.". Please enter the date in the format YYYY-MM-DD";
+						exit;
+					}
+					else
+					{
+						//Explode string to contain separate year, month, and day
+						list($year, $month, $day) = explode('-', $myDate);
+
+						//Check that date is valid
+						if (!(checkdate($month,$day,$year)))
+						{
+							echo "Error: Incorrect date format. You entered ".$myDate.". Please enter the date in the format YYYY-MM-DD";
+							exit;
+						}
+
+						if ($myDate > date("Y/m/d"))
+						{
+							echo "Error: Incorrect date. You entered ".$myDate.". Please pick a date that has already occurred";
+							exit;
+						}	
+					}
+				
 					//Create add query and execute
 					if(!($stmt = $mysqli->prepare("INSERT INTO mtn_routeClimbed(cid, rid, climbDate) VALUES (?,?,?)"))){
 						echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
